@@ -6,5 +6,5 @@ class AppColors {
   static Color text = Colors.white;
   static Color textDark = Colors.white38;
   static Color backCard = Colors.grey;
-  static Color CircularProgress = Colors.white;
+  static Color circularProgress = Colors.white;
 }

@@ -57,7 +57,7 @@ class _SplashPageState extends State<SplashPage> {
                           mainAxisSize: MainAxisSize.min,
                           children:  [
                             const SizedBox(height: 16.0),
-                            CircularProgressIndicator(color: AppColors.CircularProgress),
+                            CircularProgressIndicator(color: AppColors.circularProgress),
                           ],
                         ),
                         
