@@ -60,6 +60,7 @@ class _SplashPageState extends State<SplashPage> {
                             CircularProgressIndicator(color: AppColors.CircularProgress),
                           ],
                         ),
+                        
                       ),
                     ))),
           ],
