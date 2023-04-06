@@ -16,184 +16,171 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children:[ Stack(
-        children: [
-          background(),backgroundFilter(),content() 
-        ],
-      ),]
+    return Stack(
+      children: [background(), backgroundFilter(), content()],
     );
   }
 
   BackdropFilter backgroundFilter() {
     return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.0),
-          ),
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.0),
         ),
-      );
+      ),
+    );
   }
 
   Container background() {
     return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                  "static/splash.jpeg"),
-              fit: BoxFit.cover),
-        ),
-      );
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage("static/splash.jpeg"), fit: BoxFit.cover),
+      ),
+    );
   }
 
   Widget content() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height- 150,
-          child: Card(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Column(
-                  children: [ SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Email',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.black,
-                                  ),
-                                  child: const TextField(
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        Icons.email,
-                                        color: Colors.white,
-                                      ),
-                                      hintText: 'Email',
-                                      hintStyle: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                const Text(
-                                  'Password',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.black,
-                                  ),
-                                  child: const TextField(
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        Icons.lock,
-                                        color: Colors.white,
-                                      ),
-                                      hintText: 'Password',
-                                      hintStyle: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 35),
-                                GestureDetector(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: Colors.black,
-                                    ),
-                                    child: const Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10.0),
-                                        child: Text(
-                                          ' Log In',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 35),
-                                const Center(
-                                  child: Text(
-                                    '- Or Sign In with -',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                      },
-                                      child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          color: Colors.white38,
-                                        ),
-                                        child: Image.asset('static/google.png'),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 50),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(15),
-                                          color: Colors.white38,
-                                        ),
-                                        child: Image.asset('static/facebook.png'),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+              
+              color: Colors.transparent,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(child: labelLogin('Inicio de Sesión')),
+                        const SizedBox(height: 25),
+                        camposTexto('Correo Electrónico', false, Icons.mail, _emailController),
+                        const SizedBox(height: 15),
+                        camposTexto('Contraseña', true, Icons.lock, _passwordController),
+                        const SizedBox(height: 35),
+                        botonLogin(),
+                        const SizedBox(height: 35),
+                        const Center(
+                          child: Text(
+                            '- Registrate con: -',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            botonLogInGoogle(),
+                            const SizedBox(width: 50),
+                            botonLogInFacebok(),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Container camposTexto(String val, bool pwd, IconData icono, TextEditingController controller) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white38,
+      ),
+      child: TextField(
+        obscureText: pwd,
+        controller: controller,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          prefixIcon: Icon(
+            icono,
+            color: Colors.white,
+          ),
+          hintText: val,
+          hintStyle: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Text labelLogin(String val) {
+    return Text(
+      val,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  GestureDetector botonLogInFacebok() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: 60,
+        height: 60,
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white38,
+        ),
+        child: Image.asset('static/facebook.png'),
+      ),
+    );
+  }
+
+  GestureDetector botonLogInGoogle() {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        width: 60,
+        height: 60,
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white38,
+        ),
+        child: Image.asset('static/google.png'),
+      ),
+    );
+  }
+
+  GestureDetector botonLogin() {
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.white60,
+        ),
+        child: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              ' Log In',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ),
       ),

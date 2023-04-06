@@ -17,6 +17,15 @@ dependencies:
   firebase_storage: ^11.0.15
   firebase_core: ^2.7.1
   cloud_firestore: ^4.4.4
+  firebase_auth: ^4.4.0
+  #Dependencia para iconos
+  flutter_launcher_icons: ^0.10.0
+  
+
+flutter_icons:
+  image_path: "static/coffe-cup.png"
+  android: true 
+  ios: true
 
 dev_dependencies:
   flutter_test:
