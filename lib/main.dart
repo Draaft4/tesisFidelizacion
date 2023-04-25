@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'view/Login/LoginPage.dart';
+import 'view/Login/RegisterPage.dart';
 import 'view/Main/mainPage.dart';
 import 'view/Splash/SplashPage.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashPage(),
         '/main': (context) => const mainPage(),
         '/login':(context) => const LoginPage(),
+        '/register':(context) => const registerPage(),
       },
     );
   }

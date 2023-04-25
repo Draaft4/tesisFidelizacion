@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitodelizacion_app/constants.dart';
 import 'package:flutter/material.dart';
 
 class mainPage extends StatefulWidget {
@@ -8,38 +10,69 @@ class mainPage extends StatefulWidget {
 }
 
 class _mainPageState extends State<mainPage> {
+  var constants = Constants();
+  bool sesion = false;
+
   @override
   Widget build(BuildContext context) {
+    constants.auth.authStateChanges().listen((User? user) {
+      if (user == null) {
+        sesion = false;
+        print('User is currently signed out!');
+      } else {
+        sesion = true;
+        print('User is signed in!');
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              icon: const Icon(Icons.login))
-        ],
+        actions: [sesion ? botonCerrarSesion() : botonLogin(context)],
         title: const Text('Promociones'),
       ),
-      body: ListView(children: [
-        cardPromociones(
-            "Prom 1",
-            Image.asset(
-              "static/coffee-cup.png",
-            )),
-         cardPromociones(
-            "Prom 2",
-            Image.asset(
-              "static/coffee-cup.png",
-            )),
-            cardPromociones(
-            "Prom 2",
-            Image.asset(
-              "static/coffee-cup.png",
-            )),   
-      ]),
+      body: sesion ? mainSesion() : mainNoSesion(),
     );
+  }
+
+  IconButton botonCerrarSesion() {
+    return IconButton(
+      icon: const Icon(Icons.close),
+      onPressed: () {
+        constants.auth
+            .signOut()
+            .then((value) => {Navigator.pushReplacementNamed(context, "/")});
+      },
+    );
+  }
+
+  IconButton botonLogin(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/login');
+        },
+        icon: const Icon(Icons.login));
+  }
+
+  Widget mainSesion() => Container();
+
+  ListView mainNoSesion() {
+    return ListView(children: [
+      cardPromociones(
+          "Prom 1",
+          Image.asset(
+            "static/coffee-cup.png",
+          )),
+      cardPromociones(
+          "Prom 2",
+          Image.asset(
+            "static/coffee-cup.png",
+          )),
+      cardPromociones(
+          "Prom 2",
+          Image.asset(
+            "static/coffee-cup.png",
+          )),
+    ]);
   }
 
   Card cardPromociones(String val, Image imagen) {
@@ -50,33 +83,4 @@ class _mainPageState extends State<mainPage> {
     );
   }
 
-  ListView listMenu() {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-            ),
-            child: backgroundDrawer()),
-        ListTile(
-          title: const Text('Item 1'),
-          onTap: () {},
-        ),
-        ListTile(
-          title: const Text('Item 2'),
-          onTap: () {},
-        ),
-      ],
-    );
-  }
-
-  Container backgroundDrawer() {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("static/coffee-cup.png"), fit: BoxFit.cover),
-      ),
-    );
-  }
 }

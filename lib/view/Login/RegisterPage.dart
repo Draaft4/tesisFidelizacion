@@ -1,22 +1,20 @@
 import 'dart:ui';
 
-import 'package:fitodelizacion_app/styles/colors.dart';
+import 'package:fitodelizacion_app/view/Login/controllers/controlLogIn.dart';
 import 'package:flutter/material.dart';
 
-import 'controllers/controlLogIn.dart';
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class registerPage extends StatefulWidget {
+  const registerPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<registerPage> createState() => _registerPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _registerPageState extends State<registerPage> {
 
-  controlLogIn control = controlLogIn();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+  var controlLogin = controlLogIn();
 
   @override
   Widget build(BuildContext context) {
@@ -61,33 +59,18 @@ class _LoginPageState extends State<LoginPage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(child: labelLogin('Inicio de Sesión')),
+                        labelLogin('Registro de Usuarios'),
                         const SizedBox(height: 25),
-                        camposTexto('Correo Electrónico', false, Icons.mail, _emailController),
-                        const SizedBox(height: 15),
-                        camposTexto('Contraseña', true, Icons.lock, _passwordController),
-                        const SizedBox(height: 35),
-                        botonLogin(),
-                        const SizedBox(height: 35),
-                        const Center(
-                          child: Text(
-                            '- Registrate con: -',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                        camposTexto("Email", false, Icons.email, _emailController),
+                        const SizedBox(height: 15,),
+                        camposTexto("Contraseña", true, Icons.lock, _passController),
+                        const SizedBox(height: 15,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            botonLogInGoogle(),
-                            const SizedBox(width: 50),
-                            botonLogInFacebok(),
-                            const SizedBox(width: 50),
-                            botonLogInEmail(),
+                            botonRegister(),
+                            const SizedBox(width: 10,),
+                            botonCancelar(),
                           ],
                         )
                       ],
@@ -136,60 +119,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  GestureDetector botonLogInFacebok() {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 60,
-        height: 60,
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white38,
-        ),
-        child: Image.asset('static/facebook.png'),
-      ),
-    );
-  }
-
-  GestureDetector botonLogInEmail() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushReplacementNamed(context, '/register');
-      },
-      child: Container(
-        width: 60,
-        height: 60,
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white38,
-        ),
-        child: Image.asset('static/email.png'),
-      ),
-    );
-  }
-
-  GestureDetector botonLogInGoogle() {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 60,
-        height: 60,
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white38,
-        ),
-        child: Image.asset('static/google.png'),
-      ),
-    );
-  }
-
-  GestureDetector botonLogin() {
+  GestureDetector botonRegister() {
     return GestureDetector(
       onTap: (){
-        control.login(_emailController.text, _passwordController.text, context);
+        print("Registrando ${_emailController.text} ${_passController.text}");
+        controlLogin.registro(_emailController.text, _passController.text,context);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -200,10 +134,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              ' Log In',
+              'Registrar',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 30,
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -212,4 +146,32 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  GestureDetector botonCancelar() {
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushReplacementNamed(context, '/login');
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: Colors.white60,
+        ),
+        child: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              'Cancelar',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
